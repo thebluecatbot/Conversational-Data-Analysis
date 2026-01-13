@@ -6,7 +6,7 @@ A conversational data analysis dashboard that converts natural language question
 
 ## Overview
 
-Talk-to-CSV allows users to upload a dataset and explore it by asking questions like:
+A conversational data analysis dashboard allows users to upload a dataset and explore it by asking questions like:
 
 "Show me a bar chart of profit by region"
 
