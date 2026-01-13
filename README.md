@@ -1,54 +1,59 @@
-# Ticket Booking Web Application
 
-Simple Flask-based ticket booking app (seat-level booking) with:
-- Flask + SQLAlchemy (SQLite)
-- Flask-Login auth
-- Celery tasks (Redis broker)
-- SMTP email hooks (configured via environment variables)
-- Admin read-only dashboard and CSV export
 
-## Quick start (local)
+A conversational data analysis dashboard that converts natural language questions into real Pandas and Matplotlib code.
 
-1. Create a virtualenv and install dependencies:
-   ```
-   python -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
-   ```
+---
 
-2. Set environment variables (example):
-   ```
-   export FLASK_APP=app.py
-   export FLASK_ENV=development
-   export SECRET_KEY='replace-with-a-secret'
-   export DATABASE_URL='sqlite:///data.db'
-   export CELERY_BROKER_URL='redis://localhost:6379/0'
-   export MAIL_SERVER='smtp.example.com'
-   export MAIL_PORT=587
-   export MAIL_USERNAME='you@example.com'
-   export MAIL_PASSWORD='password'
-   export MAIL_USE_TLS=1
-   ```
+## Overview
 
-3. Start Redis (required by Celery) and run Celery worker:
-   ```
-   redis-server
-   celery -A celery_worker.celery worker --loglevel=info
-   ```
+Talk-to-CSV allows users to upload a dataset and explore it by asking questions like:
 
-4. Initialize the database:
-   ```
-   python -c "from app import init_db; init_db()"
-   ```
+"Show me a bar chart of profit by region"
 
-5. Run the Flask app:
-   ```
-   flask run
-   ```
+The system generates real Python code, executes it, and displays charts, tables, or statistics.
 
-6. Open http://127.0.0.1:5000
+---
 
-## Notes / Limitations
-- Uses SQLite for local testing; not suited for high concurrency.
-- Celery requires a broker (Redis recommended).
-- Passwords are hashed but this is a simple example; review security before production.
+## Features
+
+- Upload CSV, Excel, or TSV files
+- Ask natural-language questions
+- Get real charts and tables (not text)
+- See the generated Python code
+- No automatic recommendations — request-driven only
+
+---
+
+## How It Works
+
+1. User uploads a file  
+2. User asks a question  
+3. LLM converts the question into Pandas + Matplotlib code  
+4. The code is validated and executed  
+5. Output is displayed in the app  
+
+Schema checks prevent invalid plots or crashes.
+
+---
+
+## Tech Stack
+
+- Streamlit
+- Pandas
+- Matplotlib
+- LLM API (NL → Python)
+
+---
+
+## Constraints
+
+- One dataset at a time
+- Limited by Streamlit compute and LLM rate limits
+- Assumes reasonably clean tabular data
+
+---
+
+## Goal
+
+To demonstrate how conversational interfaces can drive real executable analytics.
+
